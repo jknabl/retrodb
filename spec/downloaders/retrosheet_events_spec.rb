@@ -58,7 +58,7 @@ RSpec.describe 'Downloaders::RetrosheetEvents' do
     it 'downloads multiple event files' do
       downloader = Downloaders::RetrosheetEvents.new(start_year: 1920, end_year: 2018)
 
-      Dir["#{Retrodb.root}/spec/fixtures/event_files/*"].each do |file_path|
+      Dir["#{Retrodb.root}/spec/fixtures/event_files/*"].grep(/.*seve.zip/).each do |file_path|
         file_name = file_path.split('/').last
         mock_file = double(file_name)
         expect(File).to receive(:open).with("#{Retrodb.root}/tmp/#{file_name}", "wb").once.and_yield(mock_file)
@@ -67,10 +67,35 @@ RSpec.describe 'Downloaders::RetrosheetEvents' do
 
       downloader.download_all_event_files
 
-      Dir["#{Retrodb.root}/spec/fixtures/event_files/*"].each do |file_path|
+      Dir["#{Retrodb.root}/spec/fixtures/event_files/*"].grep(/.*seve.zip/).each do |file_path|
         file_name = file_path.split('/').last
         expect(WebMock).to have_requested(:get, "https://www.retrosheet.org/events/#{file_name}").once
       end
+    end
+  end
+
+  describe '#unzip_all_event_files' do
+    before do
+      Dir["#{Retrodb.root}/spec/fixtures/event_files/*"].each do |file_name|
+        File.open(file_name, "r") do |file|
+          WebMock.stub_request(:get, /https:\/\/www.retrosheet.org\/events\/#{file_name.split('/').last}/).to_return(body: file, status: 200)
+        end
+      end
+    end
+
+    after do
+      Dir["#{Retrodb.root}/tmp/*"].each{ |name| File.delete(name) }
+    end
+
+    it 'unzips all event files in a directory' do
+      downloader = Downloaders::RetrosheetEvents.new
+      Dir["#{Retrodb.root}/spec/fixtures/event_files/*"].grep(/.*seve.zip/).each do |file_path|
+        file_name = file_path.split('/').last
+        expect(Zip::File).to receive(:open).with("#{Retrodb.root}/tmp/#{file_name}").once
+      end
+
+      downloader.download_all_event_files
+      downloader.unzip_all_event_files
     end
   end
 end

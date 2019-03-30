@@ -44,4 +44,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "dm-sqlite-adapter"
   spec.add_dependency "data_mapper"
   spec.add_dependency "http"
+  spec.add_dependency "rubyzip"
 end

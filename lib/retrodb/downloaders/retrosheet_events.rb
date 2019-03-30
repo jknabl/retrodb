@@ -1,4 +1,5 @@
 require 'http'
+require 'zip'
 
 module Downloaders
   class YearInputError < StandardError; end;
@@ -24,6 +25,20 @@ module Downloaders
         end
       end
       threads.map(&:join)
+    end
+
+    def unzip_all_event_files
+      require 'pry'
+      binding.pry
+      Dir["#{download_path}/*"].grep(/.*seve.zip/).each do |event_file|
+        Zip::File.open(event_file) do |zipped_file|
+          zipped_file.each do |entry|
+
+            unzipped_path = "#{Retrodb.root}/db/#{entry.name}"
+            zipped_file.extract(entry, unzipped_path)
+          end
+        end
+      end
     end
 
     private
