@@ -41,4 +41,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_dependency "dm-sqlite-adapter"
   spec.add_dependency "data_mapper"
+  spec.add_dependency "http"
 end
