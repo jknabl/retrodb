@@ -1,49 +1,48 @@
 require 'http'
 
 module Downloaders
+  class YearInputError < StandardError; end;
+
   class RetrosheetEvents
     attr_reader :download_path, :start_year, :end_year
+
+    MIN_FILE_YEAR = 1920
+    MAX_FILE_YEAR = 2010
 
     def initialize(download_path: "#{Retrodb.root}/tmp", start_year: 1921, end_year: 2018)
       @download_path = download_path
       @start_year = start_year
       @end_year = end_year
+      validate_year_input
     end
 
     def download_all_event_files
       threads = []
       uris_for_download.each do |uri|
         threads << Thread.new(uri) do |uri|
-          download_event_files(uri)
+          download_event_file(uri)
         end
       end
       threads.map(&:join)
     end
 
-    def download_event_files(uri)
+    private
+
+    def download_event_file(uri)
       response = HTTP.get(uri).to_s
       file_name = uri.split('/').last
-      open("#{download_path}/#{file_name}", 'wb') do |file|
+
+      File.open("#{download_path}/#{file_name}", "wb") do |file|
         file.write(response)
       end
     end
 
-    private
-
-    def min_file_year
-      1920
-    end
-
-    def max_file_year
-      2010
-    end
-
     def file_years
-      (min_file_year..max_file_year).step(10)
+      (MIN_FILE_YEAR..MAX_FILE_YEAR).step(10)
     end
 
     def file_year_start
-      file_years.select{ |year| start_year > year }.first
+      file_years.select{ |year| start_year >= year }.first
     end
 
     def file_year_end
@@ -64,6 +63,12 @@ module Downloaders
 
     def base_uri
       'https://www.retrosheet.org/events/'
+    end
+
+    def validate_year_input
+      raise YearInputError unless start_year <= end_year
+      raise YearInputError unless start_year >= MIN_FILE_YEAR
+      raise YearInputError unless end_year <= (MAX_FILE_YEAR + 10)
     end
   end
 end
