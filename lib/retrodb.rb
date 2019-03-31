@@ -7,6 +7,7 @@ module Retrodb
 
   require 'retrodb/downloaders/retrosheet_events'
   require 'retrodb/downloaders/chadwick'
+  require 'retrodb/downloaders/retrosheet_team_ids'
 
   require 'retrodb/installers/chadwick'
 
@@ -16,6 +17,8 @@ module Retrodb
   database.setup
 
   require 'retrodb/persisters/event'
+  require 'retrodb/persisters/team_ids'
 
   require 'retrodb/parsers/event'
+  require 'retrodb/parsers/team_ids'
 end
