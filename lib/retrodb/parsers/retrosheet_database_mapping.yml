@@ -1,0 +1,486 @@
+0:
+  retrosheet_header: 'GAME_ID'
+  retrosheet_description: 'Game ID'
+  db_column_name: 'game_id'
+  db_column_type: 'String'
+1:
+  retrosheet_header: AWAY_TEAM_ID
+  retrosheet_description: Visiting team
+  db_column_name: away_team_id
+  db_column_type: String
+2:
+  retrosheet_header: INN_CT
+  retrosheet_description: Inning
+  db_column_name: inning_number
+  db_column_type: Integer
+3:
+  retrosheet_header: BAT_HOME_ID
+  retrosheet_description: Batting team
+  db_column_name: batting_team_id
+  db_column_type: Integer
+4:
+  retrosheet_header: OUTS_CT
+  retrosheet_description: Outs count
+  db_column_name: outs_count
+  db_column_type: Integer
+5:
+  retrosheet_header: BALLS_CT
+  retrosheet_description: Balls count
+  db_column_name: balls_count
+  db_column_type: Integer
+6:
+  retrosheet_header: STRIKES_CT
+  retrosheet_description: Strikes count
+  db_column_name: strikes_count
+  db_column_type: Integer
+7:
+  retrosheet_header: PITCH_SEQUENCE_TX
+  retrosheet_description: Pitch sequence
+  db_column_name: pitch_sequence
+  db_column_type: String
+8:
+  retrosheet_header: AWAY_SCORE_CT
+  retrosheet_description: Away team score
+  db_column_name: away_team_score_count
+  db_column_type: Integer
+9:
+  retrosheet_header: HOME_SCORE_CT
+  retrosheet_description: Home team score
+  db_column_name: home_team_score_count
+  db_column_type: Integer
+10:
+  retrosheet_header: BAT_ID
+  retrosheet_description: Batter
+  db_column_name: batter_id
+  db_column_type: String
+11:
+  retrosheet_header: BAT_HAND_CD
+  retrosheet_description: Batter hand
+  db_column_name: batter_hand
+  db_column_type: String
+12:
+  retrosheet_header: RESP_BAT_ID
+  retrosheet_description: Result batter (this batter is credited with the event)
+  db_column_name: result_batter_id
+  db_column_type: String
+13:
+  retrosheet_header: RESP_BATTER_HAND_CD
+  retrosheet_description: Result batter hand
+  db_column_name: result_batter_hand
+  db_column_type: String
+14:
+  retrosheet_header: PIT_ID
+  retrosheet_description: Pitcher ID
+  db_column_name: pitcher_id
+  db_column_type: String
+15:
+  retrosheet_header: PIT_HAND_CD
+  retrosheet_description: Pitcher hand
+  db_column_name: pitcher_hand
+  db_column_type: String
+16:
+  retrosheet_header: RESP_PIT_ID
+  retrosheet_description: Result pitcher ID (this pitcher is charged with the event)
+  db_column_name: result_pitcher_id
+  db_column_type: String
+17:
+  retrosheet_header: RESP_PIT_HAND_CD
+  retrosheet_description: Result pitcher hand
+  db_column_name: result_pitcher_hand
+  db_column_type: String
+18:
+  retrosheet_header: POS2_FLD_ID
+  retrosheet_description: Catcher player ID
+  db_column_name: catcher_player_id
+  db_column_type: String
+19:
+  retrosheet_header: POS3_FLD_ID
+  retrosheet_description: First base player ID
+  db_column_name: first_base_player_id
+  db_column_type: String
+20:
+  retrosheet_header: POS4_FLD_ID
+  retrosheet_description: Second base player ID
+  db_column_name: second_base_player_id
+  db_column_type: String
+21:
+  retrosheet_header: POS5_FLD_ID
+  retrosheet_description: Third base player ID
+  db_column_name: third_base_player_id
+  db_column_type: String
+22:
+  retrosheet_header: POS6_FLD_ID
+  retrosheet_description: Shortstop player ID
+  db_column_name: shortstop_player_id
+  db_column_type: String
+23:
+  retrosheet_header: POS7_FLD_ID
+  retrosheet_description: Left field player ID
+  db_column_name: left_field_player_id
+  db_column_type: String
+24:
+  retrosheet_header: POS8_FLD_ID
+  retrosheet_description: Center field player ID
+  db_column_name: center_field_player_id
+  db_column_type: String
+25:
+  retrosheet_header: POS9_FLD_ID
+  retrosheet_description: Right field player ID
+  db_column_name: right_field_player_id
+  db_column_type: String
+26:
+  retrosheet_header: BASE1_RUN_ID
+  retrosheet_description: Runner on first base player ID
+  db_column_name: runner_on_first_player_id
+  db_column_type: String
+27:
+  retrosheet_header: BASE2_RUN_ID
+  retrosheet_description: Runner on second base player ID
+  db_column_name: runner_on_second_player_id
+  db_column_type: String
+28:
+  retrosheet_header: BASE3_RUN_ID
+  retrosheet_description: Runner on third base player ID
+  db_column_name: runner_on_third_player_id
+  db_column_type: String
+29:
+  retrosheet_header: EVENT_TX
+  retrosheet_description: Event text
+  db_column_name: event_text
+  db_column_type: String
+30:
+  retrosheet_header: LEADOFF_FL
+  retrosheet_description: Leadoff flag
+  db_column_name: leadoff_flag
+  db_column_type: String
+31:
+  retrosheet_header: PH_FL
+  retrosheet_description: This field is T if the batter is a pinch-hitter, and F if he is not. If a player enters the game as a pinch-hitter, and then bats again in the same inning because his team bats around, this field will be F for the player’s second plate appearance. To identify the cases where this occurs, consult the defensive position field (field 32), which will continue to be equal to 11 (or 12 for a pinch-runner) until that player assumes a defensive position.
+  db_column_name: pinch_hitter_flag
+  db_column_type: String
+32:
+  retrosheet_header: BAT_FLD_CD
+  retrosheet_description: Defensive position (1 == First base, 7 == Left field, etc.)
+  db_column_name: batter_defensive_position_id
+  db_column_type: Integer
+33:
+  retrosheet_header: BAT_LINEUP_ID
+  retrosheet_description: Batter position in batting lineup
+  db_column_name: batter_lineup_position_id
+  db_column_type: Integer
+34:
+  retrosheet_header: EVENT_CD
+  retrosheet_description: Event type (code -- see http://chadwick.sourceforge.net/doc/cwevent.html#cwtools-cwevent-eventtype)
+  db_column_name: event_type_id
+  db_column_type: Integer
+35:
+  retrosheet_header: BAT_EVENT_FL
+  retrosheet_description: Batter event flag
+  db_column_name: batter_event_flag
+  db_column_type: String
+36:
+  retrosheet_header: AB_FL
+  retrosheet_description: Official time at bat flag (differing rules across eras -- see http://chadwick.sourceforge.net/doc/cwevent.html#cwtools-cwevent-sacflags)
+  db_column_name: official_time_at_bat_flag
+  db_column_type: String
+37:
+  retrosheet_header: H_CD
+  retrosheet_description: Hit value (Note -- chadwick docs incorrectly code this as H_FL, CSV shows as a count)
+  db_column_name: hit_value_count
+  db_column_type: Integer
+38:
+  retrosheet_header: SH_FL
+  retrosheet_description: Sacrifice hit flag
+  db_column_name: sacrifice_hit_flag
+  db_column_type: String
+39:
+  retrosheet_header: SF_FL
+  retrosheet_description: Sacrifice fly flag
+  db_column_name: sacrifice_fly_flag
+  db_column_type: String
+40:
+  retrosheet_header: EVCENT_OUTS_CT
+  retrosheet_description: Outs on play count.
+  db_column_name: outs_on_play_count
+  db_column_type: Integer
+41:
+  retrosheet_header: DP_FL
+  retrosheet_description: Double-play flag
+  db_column_name: double_play_flag
+  db_column_type: String
+42:
+  retrosheet_header: TP_FL
+  retrosheet_description: Triple-play flag
+  db_column_name: triple_play_flag
+  db_column_type: String
+43:
+  retrosheet_header: RBI_CT
+  retrosheet_description: Runs batted in count
+  db_column_name: runs_batted_in_count
+  db_column_type: Integer
+44:
+  retrosheet_header: WP_FL
+  retrosheet_description: Wild pitch flag
+  db_column_name: wild_pitch_flag
+  db_column_type: String
+45:
+  retrosheet_header: PB_FL
+  retrosheet_description: Passed ball flag
+  db_column_name: passed_ball_flag
+  db_column_type: String
+46:
+  retrosheet_header: FLD_CD
+  retrosheet_description: Fielded by (integer ID is the defensive position, 1==1B, 4=SS, etc.)
+  db_column_name: fielded_by_position_id
+  db_column_type: Integer
+47:
+  retrosheet_header: BATTEDBALL_CD
+  retrosheet_description: Batted ball type
+  db_column_name: batted_ball_type
+  db_column_type: String
+48:
+  retrosheet_header: BUNT_FL
+  retrosheet_description: Bunt flag
+  db_column_name: bunt_flag
+  db_column_type: String
+49:
+  retrosheet_header: FOUL_FL
+  retrosheet_description: Foul ball flag
+  db_column_name: foul_ball_flag
+  db_column_type: String
+50:
+  retrosheet_header: BATTEDBALL_LOC_TX
+  retrosheet_description: Hit to location (location codes based on this chart https://www.retrosheet.org/location.htm)
+  db_column_name: hit_to_location
+  db_column_type: String
+51:
+  retrosheet_header: ERR_CT
+  retrosheet_description: Error count
+  db_column_name: error_count
+  db_column_type: Integer
+52:
+  retrosheet_header: ERR1_FLD_CD
+  retrosheet_description: First error player (defensive position)
+  db_column_name: first_error_player_id
+  db_column_type: Integer
+53:
+  retrosheet_header: ERR1_CD
+  retrosheet_description: First error type (F for fielding, T for throwing)
+  db_column_name: first_error_type
+  db_column_type: String
+54:
+  retrosheet_header: ERR2_FLD_CD
+  retrosheet_description: Second error player
+  db_column_name: second_error_player_id
+  db_column_type: Integer
+55:
+  retrosheet_header: ERR2_CD
+  retrosheet_description: Second error type (F fielding, T throwing)
+  db_column_name: second_error_type
+  db_column_type: String
+56:
+  retrosheet_header: ERR3_FLD_CD
+  retrosheet_description: Third error type
+  db_column_name: third_error_player_id
+  db_column_type: Integer
+57:
+  retrosheet_header: ERR3_CD
+  retrosheet_description: Third error type
+  db_column_name: third_error_type
+  db_column_type: String
+58:
+  retrosheet_header: BAT_DEST_ID
+  retrosheet_description: Batter destination ID (1==first, 2==second, 3==third, 4==home, 5==run scored but unearned, 6==runscored and charged as earned to opposing pitcher -- see http://chadwick.sourceforge.net/doc/cwevent.html#cwtools-cwevent-plays)
+  db_column_name: batter_destination_id
+  db_column_type: Integer
+59:
+  retrosheet_header: RUN1_DEST_ID
+  retrosheet_description: Runner on first destination
+  db_column_name: destination_for_runner_on_first
+  db_column_type: Integer
+60:
+  retrosheet_header: RUN2_DEST_ID
+  retrosheet_description: Runner on second destination
+  db_column_name: destination_for_runner_on_second
+  db_column_type: Integer
+61:
+  retrosheet_header: RUN3_DEST_ID
+  retrosheet_description: Runner on third destination
+  db_column_name: destination_for_runner_on_third
+  db_column_type: Integer
+62:
+  retrosheet_header: BAT_PLAY_TX
+  retrosheet_description: Play on batter (fielding credits involved in putting batter/runner out)
+  db_column_name: play_on_batter
+  db_column_type: String
+63:
+  retrosheet_header: RUN1_PLAY_TX
+  retrosheet_description: Play on runner (fielding credits involved in putting runner out)
+  db_column_name: play_on_first_base_runner
+  db_column_type: String
+64:
+  retrosheet_header: RUN2_PLAY_TX
+  retrosheet_description: Play on runner
+  db_column_name: play_on_second_base_runner
+  db_column_type: String
+65:
+  retrosheet_header: RUN3_PLAY_TX
+  retrosheet_description: Play on runner
+  db_column_name: play_on_third_base_runner
+  db_column_type: String
+66:
+  retrosheet_header: RUN1_SB_FL
+  retrosheet_description: Stolen base for runner on first (T or F flag)
+  db_column_name: stolen_base_for_first_base_runner
+  db_column_type: String
+67:
+  retrosheet_header: RUN2_SB_FL
+  retrosheet_description: Stolen base for runner on 2nd
+  db_column_name: stolen_base_for_second_base_runner
+  db_column_type: String
+68:
+  retrosheet_header: RUN3_SB_FL
+  retrosheet_description: Stolen base for runner on 3rd
+  db_column_name: stolen_base_for_third_base_runner
+  db_column_type: String
+69:
+  retrosheet_header: RUN1_CS_FL
+  retrosheet_description: Runner on first caught stealing
+  db_column_name: caught_stealing_for_first_base_runner
+  db_column_type: String
+70:
+  retrosheet_header: RUN2_CS_FL
+  retrosheet_description: Runner on second caught stealing
+  db_column_name: caught_stealing_for_second_base_runner
+  db_column_type: String
+71:
+  retrosheet_header: RUN3_CS_FL
+  retrosheet_description: Runner on third caught stealing
+  db_column_name: caught_stealing_for_third_base_runner
+  db_column_type: String
+72:
+  retrosheet_header: RUN1_PK_FL
+  retrosheet_description: Runner on first picked off
+  db_column_name: picked_off_for_first_base_runner
+  db_column_type: String
+73:
+  retrosheet_header: RUN2_PK_FL
+  retrosheet_description: Runner on second picked off
+  db_column_name: picked_off_for_second_base_runner
+  db_column_type: String
+74:
+  retrosheet_header: RUN3_PK_FL
+  retrosheet_description: Runner on third picked off
+  db_column_name: picked_off_for_third_base_runner
+  db_column_type: String
+75:
+  retrosheet_header: RUN1_RESP_PIT_ID
+  retrosheet_description: Pitcher charged with runner on first (Player ID) (e.g. if a pitcher leaves runners hanging and is subbed out, the subbed out pitcher is responsible for the hanging runners -- see http://chadwick.sourceforge.net/doc/cwevent.html#cwtools-cwevent-responsibility)
+  db_column_name: pitcher_charged_with_first_base_runner_player_id
+  db_column_type: String
+76:
+  retrosheet_header: RUN2_RESP_PIT_ID
+  retrosheet_description: Pitcher charged with runner on second (player ID)
+  db_column_name: pitcher_charged_with_second_base_runner_player_id
+  db_column_type: String
+77:
+  retrosheet_header: RUN3_RESP_PIT_ID
+  retrosheet_description: Pitcher charged with runner on third (player ID)
+  db_column_name: pitcher_charged_with_third_base_runner_player_id
+  db_column_type: String
+78:
+  retrosheet_header: GAME_NEW_FL
+  retrosheet_description: New game flag
+  db_column_name: new_game
+  db_column_type: String
+79:
+  retrosheet_header: GAME_END_FL
+  retrosheet_description: End game flag
+  db_column_name: end_game
+  db_column_type: String
+80:
+  retrosheet_header: PR_RUN1_FL
+  retrosheet_description: Pinch runner on first
+  db_column_name: pinch_runner_on_first_base
+  db_column_type: String
+81:
+  retrosheet_header: PR_RUN2_FL
+  retrosheet_description: Pinch runner on second
+  db_column_name: pinch_runner_on_second_base
+  db_column_type: String
+82:
+  retrosheet_header: PR_RUN3_FL
+  retrosheet_description: Pinch runner on third
+  db_column_name: pinch_runner_on_third_base
+  db_column_type: String
+83:
+  retrosheet_header: REMOVED_FOR_PR_RUN1_ID
+  retrosheet_description: Runner removed for pinch runner on first (player ID)
+  db_column_name: runner_removed_for_pinch_runner_player_id
+  db_column_type: String
+84:
+  retrosheet_header: REMOVED_FOR_PR_RUN2_ID
+  retrosheet_description: Runner removed for pinch runner on second (player ID)
+  db_column_name: runner_removed_for_pinch_runner_player_id
+  db_column_type: String
+85:
+  retrosheet_header: REMOVED_FOR_PR_RUN3_ID
+  retrosheet_description: Runner removed for pinch runner on third (player ID)
+  db_column_name: runner_removed_for_pinch_runner_player_id
+  db_column_type: String
+86:
+  retrosheet_header: REMOVED_FOR_PH_BAT_ID
+  retrosheet_description: Batter removed for pinch hitter (player ID)
+  db_column_name: batter_removed_for_pinch_hitter_player_id
+  db_column_type: String
+87:
+  retrosheet_header: REMOVED_FOR_PH_BAT_FLD_CD
+  retrosheet_description: Position of batter removed for pinch-hitter
+  db_column_name: position_of_batter_removed_for_pinch_hitter
+  db_column_type: Integer
+88:
+  retrosheet_header: POS1_FLD_CD
+  retrosheet_description: Fielder with first putout position ID (this is the fielder credited with putting a runner or batter out)
+  db_column_name: fielder_putout_1_position_id
+  db_column_type: Integer
+89:
+  retrosheet_header: POS2_FLD_CD
+  retrosheet_description: Fielder with second putout position ID
+  db_column_name: fielder_putout_2_position_id
+  db_column_type: Integer
+90:
+  retrosheet_header: POS3_FLD_CD
+  retrosheet_description: Fielder with third putout position ID
+  db_column_name: fielder_putout_3_position_id
+  db_column_type: Integer
+91:
+  retrosheet_header: ASS1_FLD_CD
+  retrosheet_description: Fielder with first assist position ID
+  db_column_name: fielder_assist_1_position_id
+  db_column_type: Integer
+92:
+  retrosheet_header: ASS2_FLD_CD
+  retrosheet_description: Fielder with second assist position ID
+  db_column_name: fielder_assist_2_position_id
+  db_column_type: Integer
+93:
+  retrosheet_header: ASS3_FLD_CD
+  retrosheet_description: Fielder with third assist position ID
+  db_column_name: fielder_assist_3_position_id
+  db_column_type: Integer
+94:
+  retrosheet_header: ASS4_FLD_CD
+  retrosheet_description: Fielder with fourth assist position ID
+  db_column_name: fielder_assist_4_position_id
+  db_column_type: Integer
+95:
+  retrosheet_header: ASS5_FLD_CD
+  retrosheet_description: Fielder with fifth assist position ID
+  db_column_name: fielder_assist_5_position_id
+  db_column_type: Integer
+96:
+  retrosheet_header: EVENT_ID
+  retrosheet_description: Event number FOR THIS GAME. This helps us to scan through all events for each game in order.
+  db_column_name: event_id
+  db_column_type: Integer
+  
