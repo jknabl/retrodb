@@ -7,10 +7,11 @@ module Downloaders
   class RetrosheetEvents
     attr_reader :download_path, :start_year, :end_year
 
+    DEFAULT_DOWNLOAD_PATH = File.join(Retrodb::ROOT, 'tmp')
     MIN_FILE_YEAR = 1920
     MAX_FILE_YEAR = 2010
 
-    def initialize(download_path: "#{Retrodb:ROOT}/tmp", start_year: 1921, end_year: 2018)
+    def initialize(download_path: DEFAULT_DOWNLOAD_PATH, start_year: 1921, end_year: 2018)
       @download_path = download_path
       @start_year = start_year
       @end_year = end_year
@@ -31,8 +32,9 @@ module Downloaders
       Dir["#{download_path}/*"].grep(/.*seve.zip/).each do |event_file|
         Zip::File.open(event_file) do |zipped_file|
           zipped_file.each do |entry|
-
             unzipped_path = "#{Retrodb::ROOT}/db/#{entry.name}"
+            next if File.exists?(unzipped_path)
+
             zipped_file.extract(entry, unzipped_path)
           end
         end
@@ -42,8 +44,10 @@ module Downloaders
     private
 
     def download_event_file(uri)
-      response = HTTP.get(uri).to_s
       file_name = uri.split('/').last
+      return if File.exists?(File.join(download_path, file_name))
+
+      response = HTTP.get(uri).to_s
 
       File.open("#{download_path}/#{file_name}", "wb") do |file|
         file.write(response)

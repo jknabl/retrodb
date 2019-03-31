@@ -10,7 +10,7 @@
 /vendor
 /Gemfile.lock
 *.DS_Store
-db/database.db
+/db/
 
 # rspec failure tracking
 .rspec_status
