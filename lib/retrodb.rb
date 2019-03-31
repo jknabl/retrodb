@@ -7,6 +7,8 @@ module Retrodb
   require 'retrodb/downloaders/retrosheet_events'
   require 'retrodb/downloaders/chadwick'
 
+  require 'retrodb/installers/chadwick'
+
   class << self
     def root
       File.dirname(__dir__)

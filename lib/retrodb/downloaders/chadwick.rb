@@ -16,5 +16,9 @@ module Downloaders
     def cleanup
       File.delete("#{Retrodb.root}/tmp/#{FILE_NAME}")
     end
+
+    def downloaded?
+      File.exists?("#{Retrodb.root}/tmp/#{FILE_NAME}")
+    end
   end
 end

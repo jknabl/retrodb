@@ -23,4 +23,18 @@ RSpec.describe 'Downloaders::Chadwick' do
       Downloaders::Chadwick.new.cleanup
     end
   end
+
+  describe '#downloaded?' do
+    it 'returns true if file exists in tmp directory' do
+      expect(File).to receive(:exists?).with("#{Retrodb.root}/tmp/#{Downloaders::Chadwick::FILE_NAME}").and_return(true)
+
+     expect(Downloaders::Chadwick.new.downloaded?).to eq(true)
+    end
+
+    it 'returns false if file does not exist in tmp directory' do
+      expect(File).to receive(:exists?).with("#{Retrodb.root}/tmp/#{Downloaders::Chadwick::FILE_NAME}").and_return(false)
+
+      expect(Downloaders::Chadwick.new.downloaded?).to eq(false)
+    end
+  end
 end
