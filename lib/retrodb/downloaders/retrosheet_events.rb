@@ -28,8 +28,6 @@ module Downloaders
     end
 
     def unzip_all_event_files
-      require 'pry'
-      binding.pry
       Dir["#{download_path}/*"].grep(/.*seve.zip/).each do |event_file|
         Zip::File.open(event_file) do |zipped_file|
           zipped_file.each do |entry|

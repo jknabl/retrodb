@@ -5,6 +5,7 @@ module Retrodb
   # Your code goes here...
 
   require 'retrodb/downloaders/retrosheet_events'
+  require 'retrodb/downloaders/chadwick'
 
   class << self
     def root
