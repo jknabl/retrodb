@@ -24,4 +24,6 @@ module Retrodb
   require 'retrodb/parsers/event'
   require 'retrodb/parsers/team_ids'
   require 'retrodb/parsers/rosters'
+
+  require 'retrodb/full_database_importer'
 end

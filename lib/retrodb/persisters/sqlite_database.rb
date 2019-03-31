@@ -13,5 +13,9 @@ module Persisters
     def setup
       DataMapper.setup(:default, File.join('sqlite://', File.join(base_path, file_name)))
     end
+
+    def reset
+      DataMapper.auto_migrate!
+    end
   end
 end
