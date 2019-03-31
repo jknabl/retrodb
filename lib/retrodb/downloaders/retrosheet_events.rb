@@ -10,7 +10,7 @@ module Downloaders
     MIN_FILE_YEAR = 1920
     MAX_FILE_YEAR = 2010
 
-    def initialize(download_path: "#{Retrodb.root}/tmp", start_year: 1921, end_year: 2018)
+    def initialize(download_path: "#{Retrodb:ROOT}/tmp", start_year: 1921, end_year: 2018)
       @download_path = download_path
       @start_year = start_year
       @end_year = end_year
@@ -32,7 +32,7 @@ module Downloaders
         Zip::File.open(event_file) do |zipped_file|
           zipped_file.each do |entry|
 
-            unzipped_path = "#{Retrodb.root}/db/#{entry.name}"
+            unzipped_path = "#{Retrodb::ROOT}/db/#{entry.name}"
             zipped_file.extract(entry, unzipped_path)
           end
         end

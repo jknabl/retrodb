@@ -483,4 +483,3 @@
   retrosheet_description: Event number FOR THIS GAME. This helps us to scan through all events for each game in order.
   db_column_name: event_id
   db_column_type: Integer
-  

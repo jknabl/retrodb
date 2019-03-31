@@ -8,7 +8,7 @@ RSpec.describe 'Downloaders::Chadwick' do
     end
 
     it 'downloads the Chadwick binary' do
-      expect(File).to receive(:open).with("#{Retrodb.root}/tmp/#{Downloaders::Chadwick::FILE_NAME}", "wb").and_yield(@downloaded_file)
+      expect(File).to receive(:open).with("#{Retrodb::ROOT}/tmp/#{Downloaders::Chadwick::FILE_NAME}", "wb").and_yield(@downloaded_file)
       expect(@downloaded_file).to receive(:write).once
 
       Downloaders::Chadwick.new.download
@@ -18,7 +18,7 @@ RSpec.describe 'Downloaders::Chadwick' do
 
   describe '#cleanup' do
     it 'deletes the temporary binary' do
-      expect(File).to receive(:delete).with("#{Retrodb.root}/tmp/#{Downloaders::Chadwick::FILE_NAME}")
+      expect(File).to receive(:delete).with("#{Retrodb::ROOT}/tmp/#{Downloaders::Chadwick::FILE_NAME}")
 
       Downloaders::Chadwick.new.cleanup
     end
@@ -26,13 +26,13 @@ RSpec.describe 'Downloaders::Chadwick' do
 
   describe '#downloaded?' do
     it 'returns true if file exists in tmp directory' do
-      expect(File).to receive(:exists?).with("#{Retrodb.root}/tmp/#{Downloaders::Chadwick::FILE_NAME}").and_return(true)
+      expect(File).to receive(:exists?).with("#{Retrodb::ROOT}/tmp/#{Downloaders::Chadwick::FILE_NAME}").and_return(true)
 
      expect(Downloaders::Chadwick.new.downloaded?).to eq(true)
     end
 
     it 'returns false if file does not exist in tmp directory' do
-      expect(File).to receive(:exists?).with("#{Retrodb.root}/tmp/#{Downloaders::Chadwick::FILE_NAME}").and_return(false)
+      expect(File).to receive(:exists?).with("#{Retrodb::ROOT}/tmp/#{Downloaders::Chadwick::FILE_NAME}").and_return(false)
 
       expect(Downloaders::Chadwick.new.downloaded?).to eq(false)
     end

@@ -1,29 +1,21 @@
 require 'data_mapper'
+require 'yaml'
 
 module Parsers
   class Event
     include DataMapper::Resource
 
-    FIELDS_MAP = [
-      {
-        field_number: 0,
-        chadwick_header: 'GAME_ID',
-        database_column: :game_id,
-        column_type: String
-      },
-      {
-        field_number: 1,
-        chadwick_header:
-      }
-    ]
-
     property :id, Serial
 
-    # 'Regular' events
+    column_definitions = YAML::load_file(File.join(__dir__,'retrosheet_database_mapping.yml'))
 
-    property :game_id, String
-    property :away_team_id, String
-    property :inning, Integer
-    property :batting_team_id,
+    column_definitions.each do |row_id, data|
+      property data['db_column_name'].to_sym, Object.const_get(data['db_column_type'])
+    end
+
+
+    DataMapper.setup(:default, File.join('sqlite://', File.join(__dir__, 'database.db')))
+    DataMapper.finalize
+    DataMapper.auto_migrate!
   end
 end

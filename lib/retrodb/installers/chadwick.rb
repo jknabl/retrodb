@@ -20,7 +20,7 @@ module Installers
     private
 
     def extract
-      `tar xvzf #{Retrodb.root}/tmp/#{Downloaders::Chadwick::FILE_NAME} -C #{Retrodb.root}/tmp`
+      `tar xvzf #{Retrodb::ROOT}/tmp/#{Downloaders::Chadwick::FILE_NAME} -C #{Retrodb::ROOT}/tmp`
     end
 
     def compile
@@ -46,7 +46,7 @@ module Installers
         puts "Error installing :("
       end
 
-      Dir.chdir(Retrodb.root)
+      Dir.chdir(Retrodb::ROOT)
     end
   end
 end
