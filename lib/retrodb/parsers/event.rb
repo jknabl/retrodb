@@ -13,9 +13,7 @@ module Parsers
       property data['db_column_name'].to_sym, Object.const_get(data['db_column_type'])
     end
 
-
-    DataMapper.setup(:default, File.join('sqlite://', File.join(__dir__, 'database.db')))
     DataMapper.finalize
-    DataMapper.auto_migrate!
+    DataMapper.auto_upgrade!
   end
 end
