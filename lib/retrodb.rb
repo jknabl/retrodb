@@ -8,6 +8,7 @@ module Retrodb
   require 'retrodb/downloaders/retrosheet_events'
   require 'retrodb/downloaders/chadwick'
   require 'retrodb/downloaders/retrosheet_team_ids'
+  require 'retrodb/downloaders/rosters'
 
   require 'retrodb/installers/chadwick'
 
@@ -18,7 +19,9 @@ module Retrodb
 
   require 'retrodb/persisters/event'
   require 'retrodb/persisters/team_ids'
+  require 'retrodb/persisters/rosters'
 
   require 'retrodb/parsers/event'
   require 'retrodb/parsers/team_ids'
+  require 'retrodb/parsers/rosters'
 end
