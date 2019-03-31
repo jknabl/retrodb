@@ -10,10 +10,12 @@ module Retrodb
 
   require 'retrodb/installers/chadwick'
 
-  require 'retrodb/parsers/sqlite_database'
-  # Setup database before loading parsers, because parsers migrate.
-  database = Parsers::SqliteDatabase.new
+  require 'retrodb/persisters/sqlite_database'
+  # Setup database before loading persisters, because persisters migrate.
+  database = Persisters::SqliteDatabase.new
   database.setup
+
+  require 'retrodb/persisters/event'
 
   require 'retrodb/parsers/event'
 end

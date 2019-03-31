@@ -1,7 +1,7 @@
 require 'data_mapper'
 require 'yaml'
 
-module Parsers
+module Persisters
   class SqliteDatabase
     attr_reader :file_name, :base_path
 

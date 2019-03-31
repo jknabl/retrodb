@@ -1,19 +1,25 @@
-require 'data_mapper'
-require 'yaml'
-
 module Parsers
   class Event
-    include DataMapper::Resource
+    attr_reader :persister_klass
 
-    property :id, Serial
-
-    column_definitions = YAML::load_file(File.join(Retrodb::ROOT, 'config', 'retrosheet_database_mapping.yml'))
-
-    column_definitions.each do |row_id, data|
-      property data['db_column_name'].to_sym, Object.const_get(data['db_column_type'])
+    # parameterize persister so we can swap out for e.g. a different DB adapter
+    def initialize(persister_class: Persisters::Event)
+      @persister_klass = persister_class
     end
 
-    DataMapper.finalize
-    DataMapper.auto_upgrade!
+    def load_rows
+      # load rows from chadwick
+
+      rows_str = `cwevent -n -f 1-96 -y 2018 2018TOR.EVA`
+    end
+
+    def read_rows
+
+    end
+
+    def read_row
+
+    end
+
   end
 end
