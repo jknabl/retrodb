@@ -42,6 +42,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webmock'
   spec.add_development_dependency 'pry'
   spec.add_dependency "dm-sqlite-adapter"
+  spec.add_dependency 'dm-postgres-adapter'
   spec.add_dependency "data_mapper"
   spec.add_dependency "http"
   spec.add_dependency "rubyzip"

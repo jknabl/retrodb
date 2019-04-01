@@ -13,8 +13,9 @@ module Retrodb
   require 'retrodb/installers/chadwick'
 
   require 'retrodb/persisters/sqlite_database'
+  require 'retrodb/persisters/postgres_database'
   # Setup database before loading persisters, because persisters migrate.
-  database = Persisters::SqliteDatabase.new
+  database = Persisters::PostgresDatabase.new
   database.setup
 
   require 'retrodb/persisters/event'
