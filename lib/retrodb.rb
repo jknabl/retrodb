@@ -22,7 +22,8 @@ module Retrodb
   require 'retrodb/persisters/team_ids'
   require 'retrodb/persisters/rosters'
 
-  require 'retrodb/parsers/event'
+  require 'retrodb/parsers/retrosheet_event_file_parser'
+  require 'retrodb/parsers/chadwick_event_file_parser'
   require 'retrodb/parsers/team_ids'
   require 'retrodb/parsers/rosters'
 

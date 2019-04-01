@@ -4,7 +4,8 @@ module Parsers
   class TempfileProductionError < StandardError; end;
   class SourceFileNotDownloadedError < StandardError; end;
 
-  class Event
+  # Retrosheet event CSV file --> Chadwick CSV file
+  class RetrosheetEventFileParser
     attr_reader :file_paths, :persister_klass
 
     def initialize(file_paths:, persister_class: Persisters::Event)
@@ -13,10 +14,11 @@ module Parsers
     end
 
     def parse
+      output_paths = []
       file_paths.each do |path|
-        chadwick_csv_path = create_chadwick_csv_from(path)
-        parse_chadwick_csv_from(chadwick_csv_path)
+        output_paths << create_chadwick_csv_from(path)
       end
+      output_paths
     end
 
     private
@@ -31,28 +33,6 @@ module Parsers
       Dir.chdir(Retrodb::ROOT)
 
       File.join(Retrodb::ROOT, 'db', file_name + '.tmp')
-    end
-
-    def parse_chadwick_csv_from(path)
-      puts "Parsing chadwick CSV #{path}..."
-      save_count = 0
-      CSV.foreach(path) do |row|
-        database_record_from_csv_row(row)
-        save_count += 1
-        puts "\n   -- Saved #{save_count} records..." if (save_count % 500) == 0
-      end
-
-      File.delete(path)
-    end
-
-    def database_record_from_csv_row(row)
-      record = persister_klass.new
-      record.schema.each do |column_number, data|
-        record.attribute_set(data['db_column_name'], row[column_number])
-      end
-
-      return true if record.save
-      puts "  -- Error saving record :("
     end
   end
 end

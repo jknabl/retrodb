@@ -2,21 +2,15 @@ module Pipelines
   class ImportAllEvents
     attr_reader :downloader_klass, :parser_klass
 
-    def initialize(downloader_klass: Downloaders::RetrosheetEvents, parser_klass: Parsers::Event)
+    def initialize(downloader_klass: Downloaders::RetrosheetEvents, parser_klass: Parsers::RetrosheetEventFileParser)
       @downloader_klass = downloader_klass
       @parser_klass = parser_klass
     end
 
     def import_pipeline
-      parser.parse
-    end
-
-    def downloader
-      @downloader ||= downloader_klass.new
-    end
-
-    def parser
-      @parser ||= parser_klass.new(file_paths: downloader.download)
+      downloaded_files = Downloaders::RetrosheetEvents.new.download
+      parsed_retrosheet_event_files = Parsers::RetrosheetEventFileParser.new(file_paths: downloaded_files).parse
+      parsed_chadwick_event_files = Parsers::ChadwickEventFileParser.new(file_paths: parsed_retrosheet_event_files).parse
     end
   end
 end
