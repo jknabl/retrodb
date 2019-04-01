@@ -7,7 +7,9 @@ module Downloaders
   class RetrosheetEvents
     attr_reader :download_path, :start_year, :end_year
 
+    EVENT_FILE_EXTENSIONS = ['EVA', 'EVN', 'EDA', 'EDN']
     DEFAULT_DOWNLOAD_PATH = File.join(Retrodb::ROOT, 'tmp')
+    EXTRACTION_PATH = File.join(Retrodb::ROOT, 'db')
     MIN_FILE_YEAR = 1920
     MAX_FILE_YEAR = 2010
 
@@ -18,7 +20,15 @@ module Downloaders
       validate_year_input
     end
 
-    def download_all_event_files
+    def download
+      archive_file_paths = download_archive_files_in_parallel
+      event_file_paths = unzip_event_files(archive_file_paths)
+      event_file_paths
+    end
+
+    private
+
+    def download_archive_files_in_parallel
       threads = []
       uris_for_download.each do |uri|
         threads << Thread.new(uri) do |uri|
@@ -26,32 +36,44 @@ module Downloaders
         end
       end
       threads.map(&:join)
+      downloaded_archive_files
     end
 
-    def unzip_all_event_files
-      Dir["#{download_path}/*"].grep(/.*seve.zip/).each do |event_file|
+    def unzip_event_files(file_paths)
+      file_paths.each do |event_file|
         Zip::File.open(event_file) do |zipped_file|
           zipped_file.each do |entry|
-            unzipped_path = "#{Retrodb::ROOT}/db/#{entry.name}"
+            unzipped_path = File.join(EXTRACTION_PATH, entry.name)
             next if File.exists?(unzipped_path)
 
             zipped_file.extract(entry, unzipped_path)
           end
         end
       end
+
+      downloaded_event_files
     end
 
-    private
+    def downloaded_event_files
+      Dir[EXTRACTION_PATH + "/*"].grep(/\.EVA|\.EVN|\.EDA|\.EDN/)
+    end
+
+    def downloaded_archive_files
+      Dir[DEFAULT_DOWNLOAD_PATH + "/*"].grep(/.*seve.zip/)
+    end
 
     def download_event_file(uri)
       file_name = uri.split('/').last
-      return if File.exists?(File.join(download_path, file_name))
+      write_path = File.join(download_path, file_name)
+      return if File.exists?(write_path)
 
       response = HTTP.get(uri).to_s
 
       File.open("#{download_path}/#{file_name}", "wb") do |file|
         file.write(response)
       end
+
+      write_path
     end
 
     def file_years

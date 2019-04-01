@@ -8,13 +8,11 @@ module Downloaders
     DOWNLOAD_PATH = File.join(Retrodb::ROOT, 'tmp', FILE_NAME)
     EXTRACTED_PATH = File.join(Retrodb::ROOT, 'db')
 
-    def initialize
-
-    end
-
+    # Download roster archive; extract to files; return list of the files.
     def download
       download_file
       unzip
+      downloaded_file_paths
     end
 
     private
@@ -41,6 +39,10 @@ module Downloaders
           zipped_file.extract(entry, unzipped_path)
         end
       end
+    end
+
+    def downloaded_file_paths
+      Dir[EXTRACTED_PATH + '/*'].grep(/.*.ROS/)
     end
   end
 end
