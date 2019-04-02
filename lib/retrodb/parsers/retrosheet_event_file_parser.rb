@@ -1,4 +1,5 @@
 require 'csv'
+require 'thread/pool'
 
 module Parsers
   class TempfileProductionError < StandardError; end;
@@ -14,10 +15,16 @@ module Parsers
     end
 
     def parse
+      pool = Thread.pool(20)
       output_paths = []
       file_paths.each do |path|
-        output_paths << create_chadwick_csv_from(path)
+        pool.process do
+          output_paths << create_chadwick_csv_from(path)
+        end
       end
+
+      pool.shutdown
+
       output_paths
     end
 
@@ -26,11 +33,16 @@ module Parsers
     def create_chadwick_csv_from(path)
       file_name = path.split('/').last # should have event extension, e.g. .EVA
       year = file_name[0..3]
-      puts "  -- Creating Chadwick CSV for #{file_name}..."
 
-      Dir.chdir(File.join(Retrodb::ROOT, 'db'))
-      `cwevent -f 0-96 -y #{year} #{file_name} > #{file_name + '.tmp'}`
-      Dir.chdir(Retrodb::ROOT)
+      if File.exists?(File.join(Retrodb::ROOT, 'db', file_name + '.tmp'))
+        puts "  -- Parsed file already existed fpr #{file_name}, moving on..."
+      else
+        puts "  -- Creating Chadwick CSV for #{file_name}..."
+
+        Dir.chdir(File.join(Retrodb::ROOT, 'db'))
+        `cwevent -f 0-96 -y #{year} #{file_name} > #{file_name + '.tmp'}`
+        Dir.chdir(Retrodb::ROOT)
+      end
 
       File.join(Retrodb::ROOT, 'db', file_name + '.tmp')
     end

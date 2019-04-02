@@ -3,10 +3,11 @@ require 'csv'
 module Parsers
   # Chadwick event file --> database rows
   class ChadwickEventFileParser
-    attr_reader :file_paths
+    attr_reader :file_paths, :persister_klass
 
-    def initialize(file_paths:, persister_klass: Persisters::PostgresDatabase)
+    def initialize(file_paths:, persister_klass: Persisters::Event)
       @file_paths = file_paths
+      @persister_klass = persister_klass
     end
 
     def parse
@@ -31,6 +32,7 @@ module Parsers
 
     def database_record_from_csv_row(row)
       record = persister_klass.new
+
       record.schema.each do |column_number, data|
         record.attribute_set(data['db_column_name'], row[column_number])
       end

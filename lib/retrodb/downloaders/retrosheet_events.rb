@@ -55,7 +55,7 @@ module Downloaders
     end
 
     def downloaded_event_files
-      Dir[EXTRACTION_PATH + "/*"].grep(/\.EVA|\.EVN|\.EDA|\.EDN/)
+      Dir[EXTRACTION_PATH + "/*"].grep(/\.EVA$|\.EVN$|\.EDA$|\.EDN$/)
     end
 
     def downloaded_archive_files

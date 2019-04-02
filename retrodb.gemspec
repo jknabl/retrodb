@@ -47,4 +47,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "http"
   spec.add_dependency "rubyzip"
   spec.add_dependency "zlib"
+  spec.add_dependency "thread"
 end
