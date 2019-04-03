@@ -12,7 +12,6 @@ module Retrodb
 
   require 'retrodb/installers/chadwick'
 
-  require 'retrodb/persisters/sqlite_database'
   require 'retrodb/persisters/postgres_database'
 
   require 'retrodb/models/retrosheet_event'
@@ -25,6 +24,4 @@ module Retrodb
 
   require 'retrodb/pipelines/import_rosters'
   require 'retrodb/pipelines/import_all_events'
-
-  require 'retrodb/full_database_importer'
 end

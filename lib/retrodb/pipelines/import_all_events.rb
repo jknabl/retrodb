@@ -9,11 +9,9 @@ module Pipelines
     end
 
     def import_pipeline
-      persister.with_connection do
-        downloaded_files = Downloaders::RetrosheetEvents.new.download
-        parsed_retrosheet_event_files = Parsers::RetrosheetEventFileParser.new(file_paths: downloaded_files).parse
-        Parsers::ChadwickEventFileParser.new(file_paths: parsed_retrosheet_event_files).parse
-      end
+      downloaded_files = Downloaders::RetrosheetEvents.new.download
+      parsed_retrosheet_event_files = Parsers::RetrosheetEventFileParser.new(file_paths: downloaded_files).parse
+      Parsers::ChadwickEventFileParser.new(file_paths: parsed_retrosheet_event_files).parse
     end
   end
 end
