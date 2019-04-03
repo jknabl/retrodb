@@ -2,12 +2,11 @@ require 'csv'
 
 module Parsers
   class Rosters
-    attr_reader :file_paths, :persister_klass, :cleanup
+    attr_reader :file_paths, :cleanup
 
     # Given file paths for Retrosheet Roster files, parse the files and persist.
-    def initialize(file_paths:, persister_klass: Persisters::Rosters, cleanup_after_consumptions: false)
+    def initialize(file_paths:, cleanup_after_consumptions: false)
       @file_paths = file_paths
-      @persister_klass = persister_klass
       @cleanup = cleanup_after_consumptions
     end
 
@@ -28,7 +27,7 @@ module Parsers
     end
 
     def parse_row(row, year)
-      persister_klass.create(
+      Models::RetrosheetRoster.create!(
         player_id: row[0],
         last_name: row[1],
         first_name: row[2],

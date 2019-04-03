@@ -11,6 +11,6 @@
 /Gemfile.lock
 *.DS_Store
 /db/
-
+config/database.yml
 # rspec failure tracking
 .rspec_status

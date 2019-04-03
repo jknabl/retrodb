@@ -14,13 +14,9 @@ module Retrodb
 
   require 'retrodb/persisters/sqlite_database'
   require 'retrodb/persisters/postgres_database'
-  # Setup database before loading persisters, because persisters migrate.
-  database = Persisters::PostgresDatabase.new
-  database.setup
 
-  require 'retrodb/persisters/event'
-  require 'retrodb/persisters/team_ids'
-  require 'retrodb/persisters/rosters'
+  require 'retrodb/models/retrosheet_event'
+  require 'retrodb/models/retrosheet_roster'
 
   require 'retrodb/parsers/retrosheet_event_file_parser'
   require 'retrodb/parsers/chadwick_event_file_parser'

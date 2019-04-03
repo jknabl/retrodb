@@ -10,5 +10,12 @@ require "retrodb"
 # require "pry"
 # Pry.start
 
+db_configuration_file = File.join(File.expand_path('..', __FILE__), '..', 'db', 'config.yml')
+config_hash = YAML.load(File.read(db_configuration_file))
+
+
+ActiveRecord::Base.establish_connection(config_hash["development"])
+
 require "irb"
 IRB.start(__FILE__)
+

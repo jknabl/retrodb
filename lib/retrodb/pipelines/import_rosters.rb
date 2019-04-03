@@ -1,14 +1,17 @@
 module Pipelines
   class ImportRosters
-    attr_reader :downloader, :downloader_klass, :parser_klass, :parser
+    attr_reader :downloader, :downloader_klass, :parser_klass, :parser, :persister
 
-    def initialize(downloader_klass: Downloaders::Rosters, parser_klass: Parsers::Rosters)
+    def initialize(downloader_klass: Downloaders::Rosters, parser_klass: Parsers::Rosters, persister: Persisters::PostgresDatabase.new)
       @downloader_klass = downloader_klass
       @parser_klass = parser_klass
+      @persister = persister
     end
 
     def import_pipeline
-      parser.parse
+      persister.with_connection do
+        parser.parse
+      end
     end
 
     private

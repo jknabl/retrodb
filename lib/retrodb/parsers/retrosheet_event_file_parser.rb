@@ -7,11 +7,10 @@ module Parsers
 
   # Retrosheet event CSV file --> Chadwick CSV file
   class RetrosheetEventFileParser
-    attr_reader :file_paths, :persister_klass
+    attr_reader :file_paths
 
-    def initialize(file_paths:, persister_class: Persisters::Event)
+    def initialize(file_paths:)
       @file_paths = file_paths
-      @persister_klass = persister_class
     end
 
     def parse

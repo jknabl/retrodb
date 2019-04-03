@@ -4,13 +4,15 @@ module Parsers
   class TeamIds
     attr_reader :persister_klass
 
-    def initialize(persister_klass: Persisters::TeamIds)
+    def initialize(persister_klass: Persisters::PostgresDatabase.new)
       @persister_klass = persister_klass
     end
 
     def parse
       ensure_downloaded
-      parse_csv
+      persisters.with_connection do
+        parse_csv
+      end
     end
 
     private
@@ -22,7 +24,7 @@ module Parsers
     def parse_csv
       puts "Parsing TeamIds CSV..."
       CSV.foreach(Downloaders::RetrosheetTeamIds::DOWNLOAD_PATH) do |row|
-        record = @persister_klass.create(
+        Models::RetrosheetTeamId.create(
           team_id: row[0],
           league_id: row[1],
           city_name: row[2],
