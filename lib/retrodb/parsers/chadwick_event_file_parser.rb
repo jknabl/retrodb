@@ -22,14 +22,13 @@ module Parsers
 
     def parse_chadwick_csv_from(path)
       puts "Parsing chadwick CSV #{path}..."
-      save_count = 0
-
-      to_import = []
+      save_count, to_import = 0, []
 
       CSV.foreach(path) do |row|
         attribute_hash = {}
         Models::RetrosheetEvent.column_mapping.each do |column_number, data|
-          attribute_hash.merge({data['db_column_name'] => row[column_number]})
+          value = {data['db_column_name'] => row[column_number]}
+          attribute_hash.merge!(value)
         end
 
         persister.with_connection do
