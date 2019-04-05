@@ -13,37 +13,53 @@ module Parsers
     end
 
     def parse
+
+      pool = Thread.pool(25)
       file_paths.each do |path|
-        parse_chadwick_csv_from(path)
+        pool.process do
+          parse_chadwick_csv_from(path)
+        end
       end
+      pool.shutdown
     end
 
     private
 
     def parse_chadwick_csv_from(path)
       puts "Parsing chadwick CSV #{path}..."
-      save_count, to_import = 0, []
 
+      import_from_csv(path)
+      File.delete(path)
+    rescue => e
+      puts "Error: #{e.message} #{e.backtrace}"
+      raise
+    end
+
+    def import_from_csv(path)
+      count, batch = 0, []
       CSV.foreach(path) do |row|
-        attribute_hash = {}
-        Models::RetrosheetEvent.column_mapping.each do |column_number, data|
-          value = {data['db_column_name'] => row[column_number]}
-          attribute_hash.merge!(value)
-        end
+        row.push(DateTime.now)
+        row.push(DateTime.now)
+        batch << row
 
-        persister.with_connection do
-          to_import << Models::RetrosheetEvent.new(attribute_hash)
-          save_count += 1
+        count += 1
+        if (count == 5000)
+          columns = Models::RetrosheetEvent.column_names
+          columns.push(:updated_at)
+          columns.push(:created_at)
+          persister.with_connection { Models::RetrosheetEvent.import(columns, batch, validate: false) }
 
-          if (save_count % 1000) == 0
-            Models::RetrosheetEvent.import(to_import)
-            to_import = []
-            puts "Saved #{save_count} records..."
-          end
+
+          count = 0
+          batch = []
         end
       end
 
-      File.delete(path)
+      columns = Models::RetrosheetEvent.column_names
+      columns.push(:updated_at)
+      columns.push(:created_at)
+      persister.with_connection { Models::RetrosheetEvent.import(columns, batch, validate: false) }
+
     end
 
     def database_record_from_csv_row(row)

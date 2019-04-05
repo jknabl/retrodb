@@ -416,22 +416,22 @@
 83:
   retrosheet_header: REMOVED_FOR_PR_RUN1_ID
   retrosheet_description: Runner removed for pinch runner on first (player ID)
-  db_column_name: runner_removed_for_pinch_runner_player_id
+  db_column_name: runner_removed_for_pinch_runner_1_player_id
   db_column_type: string
 84:
   retrosheet_header: REMOVED_FOR_PR_RUN2_ID
   retrosheet_description: Runner removed for pinch runner on second (player ID)
-  db_column_name: runner_removed_for_pinch_runner_player_id
+  db_column_name: runner_removed_for_pinch_runner_2_player_id
   db_column_type: string
 85:
   retrosheet_header: REMOVED_FOR_PR_RUN3_ID
   retrosheet_description: Runner removed for pinch runner on third (player ID)
-  db_column_name: runner_removed_for_pinch_runner_player_id
+  db_column_name: runner_removed_for_pinch_runner_3_player_id
   db_column_type: string
 86:
   retrosheet_header: REMOVED_FOR_PH_BAT_ID
   retrosheet_description: Batter removed for pinch hitter (player ID)
-  db_column_name: batter_removed_for_pinch_hitter_player_id
+  db_column_name: batter_removed_for_pinch_hitter_batter_id
   db_column_type: string
 87:
   retrosheet_header: REMOVED_FOR_PH_BAT_FLD_CD
