@@ -6,7 +6,6 @@ module Downloaders
     DOWNLOAD_URL = 'https://managedway.dl.sourceforge.net/project/chadwick/chadwick-0.7/chadwick-0.7.1/' + FILE_NAME
 
     def download
-      binding.pry
       file_contents = HTTP.get(DOWNLOAD_URL).to_s
 
       File.open("#{Retrodb::ROOT}/tmp/#{FILE_NAME}", "wb") do |file|
