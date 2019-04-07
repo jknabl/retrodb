@@ -24,4 +24,6 @@ module Retrodb
 
   require 'retrodb/pipelines/import_rosters'
   require 'retrodb/pipelines/import_all_events'
+
+  require 'lahmandb/downloaders/lahman_database'
 end
