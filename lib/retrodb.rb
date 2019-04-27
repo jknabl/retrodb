@@ -22,6 +22,8 @@ module Retrodb
   require 'retrodb/parsers/chadwick_event_file_parser'
   require 'retrodb/parsers/team_ids'
   require 'retrodb/parsers/rosters'
+  require 'retrodb/parsers/mlb_lineups/lineups'
+  require 'retrodb/parsers/mlb_lineups/matchup'
 
   require 'retrodb/pipelines/import_rosters'
   require 'retrodb/pipelines/import_all_events'
