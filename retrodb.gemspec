@@ -42,6 +42,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webmock'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'rb-readline'
+  spec.add_development_dependency 'vcr'
   spec.add_dependency "activerecord"
   spec.add_dependency 'activerecord-import'
   spec.add_dependency "standalone_migrations"
