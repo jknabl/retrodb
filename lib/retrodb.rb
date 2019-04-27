@@ -9,6 +9,7 @@ module Retrodb
   require 'retrodb/downloaders/chadwick'
   require 'retrodb/downloaders/retrosheet_team_ids'
   require 'retrodb/downloaders/rosters'
+  require 'retrodb/downloaders/mlb_lineups'
 
   require 'retrodb/installers/chadwick'
 
