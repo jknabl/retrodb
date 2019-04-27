@@ -20,6 +20,7 @@ RSpec.describe 'Parsers::MlbLineups::Matchup' do
     it 'doies stuff' do
       parser = Parsers::MlbLineups::Matchup.new(matchup_element: @matchup_element)
       parser.parse
+      binding.pry
     end
   end
 end

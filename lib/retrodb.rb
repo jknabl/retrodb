@@ -24,6 +24,7 @@ module Retrodb
   require 'retrodb/parsers/rosters'
   require 'retrodb/parsers/mlb_lineups/lineups'
   require 'retrodb/parsers/mlb_lineups/matchup'
+  require 'retrodb/parsers/mlb_lineups/team_lineup'
 
   require 'retrodb/pipelines/import_rosters'
   require 'retrodb/pipelines/import_all_events'
