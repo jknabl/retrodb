@@ -17,10 +17,13 @@ RSpec.describe 'Parsers::MlbLineups::Matchup' do
   end
 
   describe '#parse' do
-    it 'doies stuff' do
+    it 'returns a hash of home and away lineups for a matchup' do
       parser = Parsers::MlbLineups::Matchup.new(matchup_element: @matchup_element)
-      parser.parse
-      binding.pry
+      result = parser.parse
+
+      expect(result.keys.sort).to eq([:away, :home])
+      expect(result[:away]).to eq(Parsers::MlbLineups::TeamLineup.new(matchup_element: @matchup_element, home_team: false).parse)
+      expect(result[:home]).to eq(Parsers::MlbLineups::TeamLineup.new(matchup_element: @matchup_element, home_team: true).parse)
     end
   end
 end

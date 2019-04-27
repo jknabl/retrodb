@@ -20,7 +20,7 @@ RSpec.describe 'Parsers::MlbLineups::Lineups' do
       end
     end
 
-    it 'does stuff' do
+    it 'returns a hash of home and away lineups for a matchup' do
       parser = Parsers::MlbLineups::Lineups.new(page_string: @mlb_response_string)
       parser.parse
     end

@@ -10,10 +10,10 @@ module Parsers
       end
 
       def parse
-        home_team = TeamLineup.new(matchup_element: matchup_element).parse
-        away_team = TeamLineup.new(matchup_element: matchup_element, home_team: false).parse
-
-        [home_team, away_team]
+        {
+          home: TeamLineup.new(matchup_element: matchup_element).parse,
+          away: TeamLineup.new(matchup_element: matchup_element, home_team: false).parse
+        }
       end
     end
   end
