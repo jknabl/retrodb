@@ -11,7 +11,10 @@ module Parsers
       end
 
       def parse
-        parse_team_header.merge(
+        parse_team_header
+          .merge(parse_game_summary)
+          .merge(
+
           {
             pitcher: parse_pitcher,
             lineup: parse_lineup
@@ -20,6 +23,14 @@ module Parsers
       end
 
       private
+
+      def parse_game_summary
+        {
+          start_time: game_starting_time,
+          game_location: game_stadium,
+          game_status: game_status
+        }
+      end
 
       def parse_team_header
         {
@@ -81,6 +92,29 @@ module Parsers
           tbd[i] = {name: 'TBD'}
         end
         tbd
+      end
+
+      def game_status
+        if matchup_element.css(".starting-lineups__game-state--postponed").any?
+          'postponed'
+        elsif matchup_element.css(".starting-lineups__game-state--final")
+          'final'
+        elsif matchup_element.css(".starting-lineups__game-state--warmup")
+          'warmup'
+        elsif matchup_element.css(".starting-lineups__game-state--live")
+          'live'
+        else
+          'pending'
+        end
+      end
+
+      def game_starting_time
+        scraped_datetime = matchup_element.css(".starting-lineups__game-date-time").css('time').first['datetime']
+        DateTime.parse(scraped_datetime)
+      end
+
+      def game_stadium
+        matchup_element.css(".starting-lineups__game-location").text.strip
       end
 
       def team_header_css_class

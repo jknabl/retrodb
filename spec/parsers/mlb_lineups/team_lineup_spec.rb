@@ -20,6 +20,49 @@ RSpec.describe 'Parsers::MlbLineups::TeamLineup' do
     end
   end
 
+  describe 'game summary parsing' do
+    describe 'game as usual' do
+      before do
+        @parser = Parsers::MlbLineups::TeamLineup.new(matchup_element: @matchup_element)
+      end
+
+      it 'parses game start time' do
+        expect(@parser.parse[:start_time]).to eq(DateTime.parse("2019-04-27T18:10:00Z"))
+      end
+
+      it 'parses stadium' do
+        expect(@parser.parse[:game_location]).to eq("Target Field")
+      end
+
+      it 'parses status' do 
+        expect(@parser.parse[:game_status]).to eq('final')
+      end
+    end
+
+    describe 'postponed game' do
+      before do
+        VCR.use_cassette('apr_26_lineup') do
+          @downloader = Downloaders::MlbLineups.new(date: Date.new(2019, 04, 26).to_s)
+          @lineup_parser = Parsers::MlbLineups::Lineups.new(html_body: @downloader.download)
+          @matchup_element = @lineup_parser.send(:matchup_elements).last
+          @result = Parsers::MlbLineups::TeamLineup.new(matchup_element: @matchup_element).parse
+        end
+      end
+
+      it 'parses game start time' do
+        expect(@result[:start_time]).to eq(DateTime.parse('2019-04-26T23:10:00Z'))
+      end
+
+      it 'parses stadium' do
+        expect(@result[:game_location]).to eq("Fenway Park")
+      end
+
+      it 'parses postponed status' do
+        expect(@result[:game_status]).to eq ("postponed")
+      end
+    end
+  end
+
   describe 'away team parsing' do
     describe 'team summary parsing' do
       before do
