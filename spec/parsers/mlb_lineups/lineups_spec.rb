@@ -15,7 +15,7 @@ RSpec.describe 'Parsers::MlbLineups::Lineups' do
 
   describe '#parse' do
     before do
-      VCR.use_cassette('apr_27_lineup.yml') do
+      VCR.use_cassette('apr_27_lineup') do
         @mlb_response_string = Downloaders::MlbLineups.new(date: Date.new(2019, 04, 27).to_s).download
       end
 
