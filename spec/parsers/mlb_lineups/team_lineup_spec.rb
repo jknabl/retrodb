@@ -4,7 +4,7 @@ RSpec.describe 'Parsers::MlbLineups::TeamLineup' do
   before do
     VCR.use_cassette('apr_27_lineup') do
       @downloader = Downloaders::MlbLineups.new(date: Date.new(2019, 04, 27).to_s)
-      @lineup_parser = Parsers::MlbLineups::Lineups.new(page_string: @downloader.download)
+      @lineup_parser = Parsers::MlbLineups::Lineups.new(html_body: @downloader.download)
       @matchup_element = @lineup_parser.send(:matchup_elements).first
     end
   end
@@ -178,6 +178,31 @@ RSpec.describe 'Parsers::MlbLineups::TeamLineup' do
       parser = Parsers::MlbLineups::TeamLineup.new(matchup_element: @matchup_element, home_team: false)
 
       expect(parser.parse[:team_name]).to eq("Orioles")
+    end
+  end
+  
+  describe 'TBD entry parsing' do 
+    before do
+      @matchup_element = @lineup_parser.send(:matchup_elements).last
+    end
+
+    it 'returns an entry with TBD name if pitcher is TBD' do
+      parser = Parsers::MlbLineups::TeamLineup.new(matchup_element: @matchup_element)
+      result = parser.parse
+
+      expect(result[:team_name]).to eq("White Sox")
+      expect(result[:pitcher][:name]).to eq("TBD")
+    end
+
+    it 'returns a lineup of 9 name TBD players if lineup is still TBD' do
+      parser = Parsers::MlbLineups::TeamLineup.new(matchup_element: @matchup_element)
+      result = parser.parse
+
+      expect(result[:team_name]).to eq("White Sox")
+      expect(result[:lineup].count).to eq(9)
+      result[:lineup].each do |position, player|
+        expect(player[:name]).to eq("TBD")
+      end
     end
   end
 end

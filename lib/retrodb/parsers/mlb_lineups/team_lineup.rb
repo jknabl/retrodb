@@ -23,15 +23,18 @@ module Parsers
 
       def parse_team_header
         {
-          team_name: team_header_element.text.gsub(/\s+/, ""),
+          team_name: team_header_element.text.strip,
           tricode: team_header_element['data-tri-code'],
           mlb_id: team_header_element['data-id'].to_i
         }
       end
 
       def parse_pitcher
+        name = team_pitcher_element.css('.starting-lineups__pitcher-name').text.strip
+        return {name: name} if name == 'TBD'
+
         {
-          name: team_pitcher_element.css('.starting-lineups__pitcher-name').text.strip,
+          name: name,
           throwing_hand: team_pitcher_element.css('.starting-lineups__pitcher-pitch-hand').text.gsub(/\s+/, ""),
           wins: team_pitcher_element.css('.starting-lineups__pitcher-wins').text.gsub(/\s+/, "").to_i,
           losses: team_pitcher_element.css('.starting-lineups__pitcher-losses').text.gsub(/\s+/, "").to_i,
@@ -44,6 +47,8 @@ module Parsers
 
       def parse_lineup_player_element(player_element)
         link_element = player_element.css('.starting-lineups__player--link').first
+        name = link_element.text.strip
+        return {name: 'TBD'} if name == 'TBD'
         bats = player_element.css('.starting-lineups__player--position').text.match(/(\(\w+\))/) do
           $1.gsub(/\(|\)/, "")
         end
@@ -58,11 +63,24 @@ module Parsers
       end
 
       def parse_lineup
+        return tbd_lineup if tbd_lineup?
         lineup = {}
         lineup_elements.each_with_index do |player_element, i|
           lineup[i + 1] = parse_lineup_player_element(player_element)
         end
         lineup
+      end
+
+      def tbd_lineup?
+        lineup_elements.css('li').first.text == 'TBD'
+      end
+
+      def tbd_lineup
+        tbd = {}
+        (1..9).each do |i|
+          tbd[i] = {name: 'TBD'}
+        end
+        tbd
       end
 
       def team_header_css_class
