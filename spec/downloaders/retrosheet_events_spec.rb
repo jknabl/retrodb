@@ -52,7 +52,7 @@ RSpec.describe 'Downloaders::RetrosheetEvents' do
       expect(File).to receive(:open).with(file_path, 'wb').once.and_yield(mock_file)
       expect(mock_file).to receive(:write)
 
-      downloader.download_all_event_files
+      downloader.download
     end
 
     it 'downloads multiple event files' do
@@ -65,7 +65,7 @@ RSpec.describe 'Downloaders::RetrosheetEvents' do
         expect(mock_file).to receive(:write)
       end
 
-      downloader.download_all_event_files
+      downloader.download
 
       Dir["#{Retrodb::ROOT}/spec/fixtures/event_files/*"].grep(/.*seve.zip/).each do |file_path|
         file_name = file_path.split('/').last
@@ -94,8 +94,7 @@ RSpec.describe 'Downloaders::RetrosheetEvents' do
         expect(Zip::File).to receive(:open).with("#{Retrodb::ROOT}/tmp/#{file_name}").once
       end
 
-      downloader.download_all_event_files
-      downloader.unzip_all_event_files
+      downloader.download
     end
   end
 end

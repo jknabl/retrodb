@@ -4,7 +4,7 @@ RSpec.describe 'Parsers::MlbLineups::Matchup' do
   before do
     VCR.use_cassette('apr_27_lineup') do
       @downloader = Downloaders::MlbLineups.new(date: Date.new(2019, 04, 27).to_s)
-      @lineup_parser = Parsers::MlbLineups::Lineups.new(page_string: @downloader.download)
+      @lineup_parser = Parsers::MlbLineups::Lineups.new(html_body: @downloader.download)
       @matchup_element = @lineup_parser.send(:matchup_elements).first
     end
   end
